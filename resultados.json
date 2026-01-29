@@ -1,0 +1,298 @@
+[
+    {
+        "Origen": "Madrid",
+        "CiudadDestino": "Frankfurt",
+        "IATAFrom": "MAD",
+        "IATATo": "FRA",
+        "Fecha": null,
+        "Pax": 1
+    },
+    {
+        "Origen": null,
+        "CiudadDestino": "Roma",
+        "IATAFrom": null,
+        "IATATo": "ROM",
+        "Fecha": null,
+        "Pax": 1
+    },
+    {
+        "Origen": "Madrid",
+        "CiudadDestino": "Frankfurt",
+        "IATAFrom": "MAD",
+        "IATATo": "FRA",
+        "Fecha": "01-09-2026",
+        "Pax": 2
+    },
+    {
+        "Origen": "Londres",
+        "CiudadDestino": "ir a Nueva Yorkr",
+        "IATAFrom": "LON",
+        "IATATo": null,
+        "Fecha": null,
+        "Pax": 1
+    },
+    {
+        "Origen": "Londres",
+        "CiudadDestino": "Nueva York",
+        "IATAFrom": "LON",
+        "IATATo": "NYC",
+        "Fecha": null,
+        "Pax": 1
+    },
+    {
+        "Origen": null,
+        "CiudadDestino": "Roma",
+        "IATAFrom": null,
+        "IATATo": "ROM",
+        "Fecha": "15-10-2026",
+        "Pax": 1
+    },
+    {
+        "Origen": null,
+        "CiudadDestino": "Roma quiero viajar",
+        "IATAFrom": null,
+        "IATATo": null,
+        "Fecha": "25-08-2026",
+        "Pax": 1
+    },
+    {
+        "Origen": null,
+        "CiudadDestino": null,
+        "IATAFrom": null,
+        "IATATo": null,
+        "Fecha": null,
+        "Pax": 1
+    },
+    {
+        "Origen": null,
+        "CiudadDestino": "Madrid",
+        "IATAFrom": null,
+        "IATATo": "MAD",
+        "Fecha": "05-08-2026",
+        "Pax": 1
+    },
+    {
+        "Origen": null,
+        "CiudadDestino": "Nueva York",
+        "IATAFrom": null,
+        "IATATo": "NYC",
+        "Fecha": null,
+        "Pax": 4
+    },
+    {
+        "Origen": "Quito",
+        "CiudadDestino": "Guayaquil",
+        "IATAFrom": "UIO",
+        "IATATo": "GYE",
+        "Fecha": "10-11-2026",
+        "Pax": 1
+    },
+    {
+        "Origen": "Madrid",
+        "CiudadDestino": "Frankfurt",
+        "IATAFrom": "MAD",
+        "IATATo": "FRA",
+        "Fecha": null,
+        "Pax": 1
+    },
+    {
+        "Origen": "Madrid",
+        "CiudadDestino": "Frankfurt",
+        "IATAFrom": "MAD",
+        "IATATo": "FRA",
+        "Fecha": null,
+        "Pax": 1
+    },
+    {
+        "Origen": "Guayaquil",
+        "CiudadDestino": "Bogotá",
+        "IATAFrom": "GYE",
+        "IATATo": "BOG",
+        "Fecha": null,
+        "Pax": 1
+    },
+    {
+        "Origen": "Madrid",
+        "CiudadDestino": "Roma",
+        "IATAFrom": "MAD",
+        "IATATo": "ROM",
+        "Fecha": "01-09-2026",
+        "Pax": 1
+    },
+    {
+        "Origen": null,
+        "CiudadDestino": null,
+        "IATAFrom": null,
+        "IATATo": null,
+        "Fecha": null,
+        "Pax": 1
+    },
+    {
+        "Origen": "Barcelona",
+        "CiudadDestino": "Frankfurt",
+        "IATAFrom": "BCN",
+        "IATATo": "FRA",
+        "Fecha": "01-09-2026",
+        "Pax": 4
+    },
+    {
+        "Origen": null,
+        "CiudadDestino": null,
+        "IATAFrom": null,
+        "IATATo": null,
+        "Fecha": null,
+        "Pax": 1
+    },
+    {
+        "Origen": "Londres",
+        "CiudadDestino": "París",
+        "IATAFrom": "LON",
+        "IATATo": "PAR",
+        "Fecha": "01-12-2026",
+        "Pax": 1
+    },
+    {
+        "Origen": "Madrid",
+        "CiudadDestino": "Sevilla",
+        "IATAFrom": "MAD",
+        "IATATo": "SVQ",
+        "Fecha": null,
+        "Pax": 2
+    },
+    {
+        "Origen": null,
+        "CiudadDestino": null,
+        "IATAFrom": null,
+        "IATATo": null,
+        "Fecha": "15-10-2026",
+        "Pax": 1
+    },
+    {
+        "Origen": "Madrid",
+        "CiudadDestino": "Frankfurt",
+        "IATAFrom": "MAD",
+        "IATATo": "FRA",
+        "Fecha": "15-10-2026",
+        "Pax": 1
+    },
+    {
+        "Origen": "Londres",
+        "CiudadDestino": "Nueva York viajo",
+        "IATAFrom": "LON",
+        "IATATo": null,
+        "Fecha": "25-12-2026",
+        "Pax": 1
+    },
+    {
+        "Origen": null,
+        "CiudadDestino": "Roma",
+        "IATAFrom": null,
+        "IATATo": "ROM",
+        "Fecha": null,
+        "Pax": 1
+    },
+    {
+        "Origen": null,
+        "CiudadDestino": "Lima",
+        "IATAFrom": null,
+        "IATATo": "ZLO",
+        "Fecha": "01-10-2026",
+        "Pax": 1
+    },
+    {
+        "Origen": null,
+        "CiudadDestino": null,
+        "IATAFrom": null,
+        "IATATo": null,
+        "Fecha": null,
+        "Pax": 2
+    },
+    {
+        "Origen": null,
+        "CiudadDestino": "Barcelona",
+        "IATAFrom": null,
+        "IATATo": "BCN",
+        "Fecha": null,
+        "Pax": 1
+    },
+    {
+        "Origen": "Roma",
+        "CiudadDestino": "Madrid",
+        "IATAFrom": "ROM",
+        "IATATo": "MAD",
+        "Fecha": null,
+        "Pax": 1
+    },
+    {
+        "Origen": null,
+        "CiudadDestino": null,
+        "IATAFrom": null,
+        "IATATo": null,
+        "Fecha": "30-12-2026",
+        "Pax": 1
+    },
+    {
+        "Origen": null,
+        "CiudadDestino": "Roma",
+        "IATAFrom": null,
+        "IATATo": "ROM",
+        "Fecha": "01-09-2026",
+        "Pax": 1
+    },
+    {
+        "Origen": "Bogotá",
+        "CiudadDestino": "Lima",
+        "IATAFrom": "BOG",
+        "IATATo": "ZLO",
+        "Fecha": null,
+        "Pax": 3
+    },
+    {
+        "Origen": "Madrid",
+        "CiudadDestino": "Barcelona",
+        "IATAFrom": "MAD",
+        "IATATo": "BCN",
+        "Fecha": null,
+        "Pax": 1
+    },
+    {
+        "Origen": "Londres",
+        "CiudadDestino": "Nueva York",
+        "IATAFrom": "LON",
+        "IATATo": "NYC",
+        "Fecha": null,
+        "Pax": 2
+    },
+    {
+        "Origen": "Barcelona",
+        "CiudadDestino": "Roma viajo",
+        "IATAFrom": "BCN",
+        "IATATo": null,
+        "Fecha": null,
+        "Pax": 1
+    },
+    {
+        "Origen": null,
+        "CiudadDestino": null,
+        "IATAFrom": null,
+        "IATATo": null,
+        "Fecha": "01-01-2026",
+        "Pax": 1
+    },
+    {
+        "Origen": "Madrid",
+        "CiudadDestino": "Frankfurt",
+        "IATAFrom": "MAD",
+        "IATATo": "FRA",
+        "Fecha": "15-10-2026",
+        "Pax": 1
+    },
+    {
+        "Origen": null,
+        "CiudadDestino": "Roma",
+        "IATAFrom": null,
+        "IATATo": "ROM",
+        "Fecha": null,
+        "Pax": 2
+    }
+]
