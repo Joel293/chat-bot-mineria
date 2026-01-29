@@ -294,5 +294,21 @@
         "IATATo": "ROM",
         "Fecha": null,
         "Pax": 2
+    },
+    {
+        "Origen": "Madrid",
+        "CiudadDestino": "Franfurt",
+        "IATAFrom": "MAD",
+        "IATATo": "FRA",
+        "Fecha": "15-10-2026",
+        "Pax": 3
+    },
+    {
+        "Origen": "Quito",
+        "CiudadDestino": "Madrid",
+        "IATAFrom": "UIO",
+        "IATATo": "MAD",
+        "Fecha": null,
+        "Pax": 1
     }
 ]

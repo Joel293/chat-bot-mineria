@@ -35,6 +35,7 @@ def normalizar_ciudad_para_api(ciudad: str):
         "múnich": "Munich",
         "francfort": "Frankfurt",
         "fráncfort": "Frankfurt",
+        "franfurt": "Frankfurt",  # 👈 AÑADE ESTA
         "bogota": "Bogota",
         "bogotá": "Bogota",
     }
@@ -174,7 +175,7 @@ def obtener_iata_ciudad(ciudad: str):
         return None
 
 # ============================================================
-# 5) Guardar resultados 
+# 5) Guardar resultados
 # ============================================================
 def cargar_resultados():
     if not RESULTADOS_PATH.exists():
@@ -192,9 +193,6 @@ def guardar_resultado_lista(datos):
     with open(RESULTADOS_PATH, "w", encoding="utf-8") as f:
         json.dump(resultados, f, ensure_ascii=False, indent=4)
 
-# ============================================================
-# 6) Extracción NL → JSON FINAL (FORMATO REQUERIDO)
-# ============================================================
 def extract_flight_info(texto: str):
     resultado = {
         "Origen": None,
@@ -208,59 +206,101 @@ def extract_flight_info(texto: str):
     if not texto:
         return resultado
 
+    # =========================
+    # TEXTO BASE
+    # =========================
     t = texto.strip()
     tl = t.lower()
 
-    m = re.search(r"\b(\d+)\s+(billete|billetes|pasaje|pasajes|pasajero|pasajeros)\b", tl)
-    if m:
-        resultado["Pax"] = int(m.group(1))
+    # =========================
+    # PASAJEROS (Pax)
+    # =========================
+    resultado["Pax"] = None
 
-    if resultado["Pax"] is None:
-        m = re.search(r"\b([a-záéíóú]+)\s+(billete|billetes|pasaje|pasajes|pasajero|pasajeros)\b", tl)
-        if m:
-            n = texto_a_numero(m.group(1))
+    m_num = re.search(
+        r"\b(\d+)\s+(billete|billetes|pasaje|pasajes|pasajero|pasajeros)\b",
+        tl
+    )
+    if m_num:
+        resultado["Pax"] = int(m_num.group(1))
+    else:
+        m_txt = re.search(
+            r"\b([a-záéíóú]+)\s+(billete|billetes|pasaje|pasajes|pasajero|pasajeros)\b",
+            tl
+        )
+        if m_txt:
+            n = texto_a_numero(m_txt.group(1))
             if n is not None:
-                resultado["Pax"] = int(n)
+                resultado["Pax"] = n
 
     if resultado["Pax"] is None:
         resultado["Pax"] = 1
 
+    # =========================
+    # FECHA
+    # =========================
     resultado["Fecha"] = normalizar_fecha(t)
 
-    m = re.search(r"\bde\s+(.+?)\s+a\s+(.+?)(?:$|\s+el\s+|\s+en\s+|\s+para\s+|\s+con\s+)", t, re.IGNORECASE)
-    if m:
-        resultado["Origen"] = limpiar_ciudad(m.group(1))
-        resultado["CiudadDestino"] = limpiar_ciudad(m.group(2))
-    else:
-        m = re.search(r"\bdesde\s+(.+?)\s+hasta\s+(.+?)(?:$|\s+el\s+|\s+en\s+|\s+para\s+|\s+con\s+)", t, re.IGNORECASE)
-        if m:
-            resultado["Origen"] = limpiar_ciudad(m.group(1))
-            resultado["CiudadDestino"] = limpiar_ciudad(m.group(2))
-        else:
-            m = re.search(r"\ba\s+(.+?)\s+desde\s+(.+?)(?:$|\s+el\s+|\s+en\s+|\s+para\s+|\s+con\s+)", t, re.IGNORECASE)
-            if m:
-                resultado["CiudadDestino"] = limpiar_ciudad(m.group(1))
-                resultado["Origen"] = limpiar_ciudad(m.group(2))
-            else:
-                m = re.search(
-                    r"\b(a|para)\s+([A-ZÁÉÍÓÚa-záéíóúÑñ\s-]+?)(?:\s+el\s+|\s+en\s+|\s+para\s+|\s+con\s+|$)",
-                    t
-                )
-                if m:
-                    resultado["CiudadDestino"] = limpiar_ciudad(m.group(2))
+    # =========================
+    # TEXTO SIN FECHA (para ciudades)
+    # =========================
+    t_sin_fecha = re.sub(
+        r"\b\d{1,2}\s+de\s+[a-záéíóú]+(?:\s+de\s+\d{4})?\b",
+        "",
+        t,
+        flags=re.IGNORECASE
+    )
 
+    # =========================
+    # ORIGEN / DESTINO
+    # =========================
+    m_ciudad = re.search(
+        r"\bde\s+([A-ZÁÉÍÓÚa-záéíóúÑñ\s-]+?)\s+a\s+([A-ZÁÉÍÓÚa-záéíóúÑñ\s-]+)\b",
+        t_sin_fecha
+    )
+
+    if m_ciudad:
+        resultado["Origen"] = limpiar_ciudad(m_ciudad.group(1))
+        resultado["CiudadDestino"] = limpiar_ciudad(m_ciudad.group(2))
+    else:
+        m_ciudad = re.search(
+            r"\bdesde\s+([A-ZÁÉÍÓÚa-záéíóúÑñ\s-]+?)\s+hacia\s+([A-ZÁÉÍÓÚa-záéíóúÑñ\s-]+)\b",
+            t_sin_fecha,
+            re.IGNORECASE
+        )
+        if m_ciudad:
+            resultado["Origen"] = limpiar_ciudad(m_ciudad.group(1))
+            resultado["CiudadDestino"] = limpiar_ciudad(m_ciudad.group(2))
+        else:
+            m_ciudad = re.search(
+                r"\b(a|para)\s+([A-ZÁÉÍÓÚa-záéíóúÑñ\s-]+)\b",
+                t_sin_fecha
+            )
+            if m_ciudad:
+                resultado["CiudadDestino"] = limpiar_ciudad(m_ciudad.group(2))
+
+    # =========================
+    # IATA
+    # =========================
     if resultado["Origen"]:
-        resultado["IATAFrom"] = obtener_iata_ciudad(normalizar_ciudad_para_api(resultado["Origen"]))
+        resultado["IATAFrom"] = obtener_iata_ciudad(
+            normalizar_ciudad_para_api(resultado["Origen"])
+        )
+
     if resultado["CiudadDestino"]:
-        resultado["IATATo"] = obtener_iata_ciudad(normalizar_ciudad_para_api(resultado["CiudadDestino"]))
+        resultado["IATATo"] = obtener_iata_ciudad(
+            normalizar_ciudad_para_api(resultado["CiudadDestino"])
+        )
 
     return resultado
+
 
 # ============================================================
 # 7) Asistente (consola)
 # ============================================================
 def asistent():
     print("Hola, bienvenido a MasterTravel. ¿Cómo te puedo ayudar?")
+    print("Escribe 'Salir' para salir del programa")
 
     while True:
         entrada = input("> ").strip()
@@ -278,4 +318,5 @@ def asistent():
 
 if __name__ == "__main__":
     asistent()
+
 
