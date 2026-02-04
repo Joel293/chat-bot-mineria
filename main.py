@@ -142,6 +142,10 @@ def limpiar_ciudad(ciudad: str):
 
     c = re.sub(r"[^\w\sÁÉÍÓÚáéíóúÑñ-]", "", c).strip()
     c = re.sub(r"\s{2,}", " ", c).strip()
+
+    # Quita restos tipo "Madrid el", "Quito de", etc.
+    c = re.sub(r"\s+(el|la|los|las|de|del|en|para|con|por)\b.*$", "", c, flags=re.IGNORECASE).strip()
+
     return c if c else None
 
 # ============================================================
@@ -171,7 +175,8 @@ def obtener_iata_ciudad(ciudad: str):
             if len(iata) == 3:
                 return iata
         return None
-    except Exception:
+    except Exception as e:
+        print(f"[DEBUG] Error API para '{ciudad}': {e}")
         return None
 
 # ============================================================
@@ -193,6 +198,56 @@ def guardar_resultado_lista(datos):
     with open(RESULTADOS_PATH, "w", encoding="utf-8") as f:
         json.dump(resultados, f, ensure_ascii=False, indent=4)
 
+AEROLINEAS = {
+    "iberia": "Iberia",
+    "latam": "LATAM",
+    "avianca": "Avianca",
+    "air europa": "Air Europa",
+    "aireuropa": "Air Europa",
+    "american airlines": "American Airlines",
+    "delta": "Delta",
+    "united": "United",
+    "ryanair": "Ryanair",
+    "vueling": "Vueling",
+    "klm": "KLM",
+    "lufthansa": "Lufthansa",
+    "air france": "Air France",
+}
+
+def extraer_aerolinea(texto: str):
+    if not texto:
+        return None
+    tl = texto.lower()
+
+    # 1) si viene "con X"
+    m = re.search(r"\bcon\s+([a-záéíóúñ\s]+)", tl)
+    if m:
+        candidato = m.group(1).strip()
+        # corta si después viene una preposición típica
+        candidato = re.split(r"\b(de|desde|a|para|el|en|por)\b", candidato)[0].strip()
+
+        # normaliza espacios
+        candidato = re.sub(r"\s{2,}", " ", candidato)
+
+        # match por diccionario
+        if candidato in AEROLINEAS:
+            return AEROLINEAS[candidato]
+
+    # 2) buscar por aparición directa en el texto
+    for k, v in AEROLINEAS.items():
+        if k in tl:
+            return v
+
+    return None
+
+def parece_ciudad(texto: str) -> bool:
+    if not texto:
+        return False
+    # max 4 palabras y solo letras/espacios/guion
+    if len(texto.split()) > 4:
+        return False
+    return re.fullmatch(r"[A-ZÁÉÍÓÚa-záéíóúÑñ-]+(?:\s+[A-ZÁÉÍÓÚa-záéíóúÑñ-]+)*", texto.strip()) is not None
+
 def extract_flight_info(texto: str):
     resultado = {
         "Origen": None,
@@ -200,7 +255,8 @@ def extract_flight_info(texto: str):
         "IATAFrom": None,
         "IATATo": None,
         "Fecha": None,
-        "Pax": None
+        "Pax": None,
+        "Aerolinea": None
     }
 
     if not texto:
@@ -242,10 +298,15 @@ def extract_flight_info(texto: str):
     resultado["Fecha"] = normalizar_fecha(t)
 
     # =========================
+    # Aerolinea
+    # =========================
+    resultado["Aerolinea"] = extraer_aerolinea(t)
+
+    # =========================
     # TEXTO SIN FECHA (para ciudades)
     # =========================
     t_sin_fecha = re.sub(
-        r"\b\d{1,2}\s+de\s+[a-záéíóú]+(?:\s+de\s+\d{4})?\b",
+        r"\b(?:el\s+)?\d{1,2}\s+de\s+[a-záéíóú]+(?:\s+de\s+\d{4})?\b",
         "",
         t,
         flags=re.IGNORECASE
@@ -262,32 +323,60 @@ def extract_flight_info(texto: str):
     if m_ciudad:
         resultado["Origen"] = limpiar_ciudad(m_ciudad.group(1))
         resultado["CiudadDestino"] = limpiar_ciudad(m_ciudad.group(2))
+
     else:
         m_ciudad = re.search(
             r"\bdesde\s+([A-ZÁÉÍÓÚa-záéíóúÑñ\s-]+?)\s+hacia\s+([A-ZÁÉÍÓÚa-záéíóúÑñ\s-]+)\b",
             t_sin_fecha,
             re.IGNORECASE
         )
+
         if m_ciudad:
             resultado["Origen"] = limpiar_ciudad(m_ciudad.group(1))
             resultado["CiudadDestino"] = limpiar_ciudad(m_ciudad.group(2))
+
         else:
+            # 👉 CASO NUEVO: "Barcelona a Roma"
+
+            t_sin_fecha_limpio = re.sub(
+                r"\b(quiero|necesito|comprar|busco|deseo)\b.*?\b(billete|billetes|pasaje|pasajes)\b",
+                "",
+                t_sin_fecha,
+                flags=re.IGNORECASE
+            ).strip()
+
             m_ciudad = re.search(
-                r"\b(a|para)\s+([A-ZÁÉÍÓÚa-záéíóúÑñ\s-]+)\b",
-                t_sin_fecha
+                r"\b([A-ZÁÉÍÓÚa-záéíóúÑñ-]+(?:\s+[A-ZÁÉÍÓÚa-záéíóúÑñ-]+){0,3})\s+a\s+([A-ZÁÉÍÓÚa-záéíóúÑñ-]+(?:\s+[A-ZÁÉÍÓÚa-záéíóúÑñ-]+){0,3})\b",
+                t_sin_fecha_limpio
             )
+
             if m_ciudad:
-                resultado["CiudadDestino"] = limpiar_ciudad(m_ciudad.group(2))
+                c1 = limpiar_ciudad(m_ciudad.group(1))
+                c2 = limpiar_ciudad(m_ciudad.group(2))
+
+                basura = {"billete", "billetes", "pasaje", "pasajes", "comprar", "necesito", "quiero"}
+                if c1 and c1.lower() not in basura:
+                    resultado["Origen"] = c1
+                    resultado["CiudadDestino"] = c2
+
+            else:
+                # Último recurso: solo destino
+                m_ciudad = re.search(
+                    r"\b(a|para)\s+([A-ZÁÉÍÓÚa-záéíóúÑñ\s-]+)\b",
+                    t_sin_fecha
+                )
+                if m_ciudad:
+                    resultado["CiudadDestino"] = limpiar_ciudad(m_ciudad.group(2))
 
     # =========================
     # IATA
     # =========================
-    if resultado["Origen"]:
+    if resultado["Origen"] and parece_ciudad(resultado["Origen"]):
         resultado["IATAFrom"] = obtener_iata_ciudad(
             normalizar_ciudad_para_api(resultado["Origen"])
         )
 
-    if resultado["CiudadDestino"]:
+    if resultado["CiudadDestino"] and parece_ciudad(resultado["CiudadDestino"]):
         resultado["IATATo"] = obtener_iata_ciudad(
             normalizar_ciudad_para_api(resultado["CiudadDestino"])
         )
@@ -299,11 +388,13 @@ def extract_flight_info(texto: str):
 # 7) Asistente (consola)
 # ============================================================
 def asistent():
-    print("Hola, bienvenido a MasterTravel. ¿Cómo te puedo ayudar?")
     print("Escribe 'Salir' para salir del programa")
+    print("\nHola, bienvenido a MasterTravel.")
 
     while True:
+        print("\n¿Cómo te puedo ayudar?")
         entrada = input("> ").strip()
+
         if entrada.lower() == "salir":
             print("Gracias por usar el asistente. ¡Hasta pronto!")
             break
@@ -315,6 +406,8 @@ def asistent():
 
         # Guardar bonito en resultados.json (lista)
         guardar_resultado_lista(datos)
+
+
 
 if __name__ == "__main__":
     asistent()

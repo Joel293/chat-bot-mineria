@@ -310,5 +310,220 @@
         "IATATo": "MAD",
         "Fecha": null,
         "Pax": 1
+    },
+    {
+        "Origen": "Madrid",
+        "CiudadDestino": "Frankfurt",
+        "IATAFrom": "MAD",
+        "IATATo": "FRA",
+        "Fecha": "01-09-2026",
+        "Pax": 2
+    },
+    {
+        "Origen": null,
+        "CiudadDestino": "Madrid el",
+        "IATAFrom": null,
+        "IATATo": null,
+        "Fecha": "05-08-2026",
+        "Pax": 1
+    },
+    {
+        "Origen": null,
+        "CiudadDestino": "Roma",
+        "IATAFrom": null,
+        "IATATo": "ROM",
+        "Fecha": "25-08-2026",
+        "Pax": 1
+    },
+    {
+        "Origen": "Madrid",
+        "CiudadDestino": "Sevilla",
+        "IATAFrom": "MAD",
+        "IATATo": "SVQ",
+        "Fecha": null,
+        "Pax": 1
+    },
+    {
+        "Origen": "Madrid",
+        "CiudadDestino": "Frankfurt",
+        "IATAFrom": "MAD",
+        "IATATo": "FRA",
+        "Fecha": "01-09-2026",
+        "Pax": 2
+    },
+    {
+        "Origen": "Necesito comprar un billete",
+        "CiudadDestino": "Madrid",
+        "IATAFrom": null,
+        "IATATo": "MAD",
+        "Fecha": "05-08-2026",
+        "Pax": 1
+    },
+    {
+        "Origen": "Comprar billete Barcelona",
+        "CiudadDestino": "Roma",
+        "IATAFrom": null,
+        "IATATo": "ROM",
+        "Fecha": "25-08-2026",
+        "Pax": 1
+    },
+    {
+        "Origen": "Madrid",
+        "CiudadDestino": "Sevilla",
+        "IATAFrom": "MAD",
+        "IATATo": "SVQ",
+        "Fecha": null,
+        "Pax": 1
+    },
+    {
+        "Origen": "Madrid",
+        "CiudadDestino": "Frankfurt",
+        "IATAFrom": "MAD",
+        "IATATo": "FRA",
+        "Fecha": "01-09-2026",
+        "Pax": 2
+    },
+    {
+        "Origen": null,
+        "CiudadDestino": "Madrid",
+        "IATAFrom": null,
+        "IATATo": "MAD",
+        "Fecha": "05-08-2026",
+        "Pax": 1
+    },
+    {
+        "Origen": "Barcelona",
+        "CiudadDestino": "Roma",
+        "IATAFrom": "BCN",
+        "IATATo": "ROM",
+        "Fecha": "25-08-2026",
+        "Pax": 1
+    },
+    {
+        "Origen": "Madrid",
+        "CiudadDestino": "Sevilla",
+        "IATAFrom": "MAD",
+        "IATATo": "SVQ",
+        "Fecha": null,
+        "Pax": 1
+    },
+    {
+        "Origen": "Madrid",
+        "CiudadDestino": "Frankfurt",
+        "IATAFrom": "MAD",
+        "IATATo": "FRA",
+        "Fecha": "01-09-2026",
+        "Pax": 2
+    },
+    {
+        "Origen": null,
+        "CiudadDestino": "Madrid",
+        "IATAFrom": null,
+        "IATATo": "MAD",
+        "Fecha": "05-08-2026",
+        "Pax": 1
+    },
+    {
+        "Origen": "Barcelona",
+        "CiudadDestino": "Roma",
+        "IATAFrom": "BCN",
+        "IATATo": "ROM",
+        "Fecha": "25-08-2026",
+        "Pax": 1
+    },
+    {
+        "Origen": "Madrid",
+        "CiudadDestino": "Sevilla",
+        "IATAFrom": "MAD",
+        "IATATo": "SVQ",
+        "Fecha": null,
+        "Pax": 1
+    },
+    {
+        "Origen": "Madrid",
+        "CiudadDestino": "Frankfurt",
+        "IATAFrom": "MAD",
+        "IATATo": "FRA",
+        "Fecha": "01-09-2026",
+        "Pax": 2
+    },
+    {
+        "Origen": "Madrid",
+        "CiudadDestino": "Frankfurt",
+        "IATAFrom": "MAD",
+        "IATATo": "FRA",
+        "Fecha": "01-09-2026",
+        "Pax": 2
+    },
+    {
+        "Origen": null,
+        "CiudadDestino": "Madrid",
+        "IATAFrom": null,
+        "IATATo": "MAD",
+        "Fecha": "05-08-2026",
+        "Pax": 1
+    },
+    {
+        "Origen": "Madrid",
+        "CiudadDestino": "Frankfurt",
+        "IATAFrom": "MAD",
+        "IATATo": "FRA",
+        "Fecha": "01-09-2026",
+        "Pax": 2,
+        "Aerolinea": null
+    },
+    {
+        "Origen": null,
+        "CiudadDestino": "Madrid",
+        "IATAFrom": null,
+        "IATATo": "MAD",
+        "Fecha": "05-08-2026",
+        "Pax": 1,
+        "Aerolinea": null
+    },
+    {
+        "Origen": "Barcelona",
+        "CiudadDestino": "Roma",
+        "IATAFrom": "BCN",
+        "IATATo": "ROM",
+        "Fecha": "25-08-2026",
+        "Pax": 1,
+        "Aerolinea": "Iberia"
+    },
+    {
+        "Origen": "Madrid",
+        "CiudadDestino": "Sevilla",
+        "IATAFrom": "MAD",
+        "IATATo": "SVQ",
+        "Fecha": null,
+        "Pax": 1,
+        "Aerolinea": "KLM"
+    },
+    {
+        "Origen": "Madrid",
+        "CiudadDestino": "Sevilla",
+        "IATAFrom": "MAD",
+        "IATATo": "SVQ",
+        "Fecha": null,
+        "Pax": 1,
+        "Aerolinea": "Air Europa"
+    },
+    {
+        "Origen": null,
+        "CiudadDestino": "Madrid",
+        "IATAFrom": null,
+        "IATATo": "MAD",
+        "Fecha": "05-08-2026",
+        "Pax": 1,
+        "Aerolinea": null
+    },
+    {
+        "Origen": "Barcelona",
+        "CiudadDestino": "Roma",
+        "IATAFrom": "BCN",
+        "IATATo": "ROM",
+        "Fecha": "25-08-2026",
+        "Pax": 1,
+        "Aerolinea": "Iberia"
     }
 ]
